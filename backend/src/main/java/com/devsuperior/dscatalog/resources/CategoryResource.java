@@ -19,12 +19,12 @@ public class CategoryResource {
     @GetMapping
     public ResponseEntity<List<CategoryDTO>> findAll() {
         List<CategoryDTO> categories = categoryService.findAll();
-        return ResponseEntity.ok(categories);
+        return ResponseEntity.ok().body(categories);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CategoryDTO> findById(@PathVariable Long id) {
         CategoryDTO result = categoryService.findById(id);
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok().body(result);
     }
 }
