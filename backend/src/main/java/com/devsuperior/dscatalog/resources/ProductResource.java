@@ -23,15 +23,8 @@ public class ProductResource {
     private ProductService productService;
     
     @GetMapping
-    public ResponseEntity<Page<ProductDTO>> findAll(
-            @RequestParam(value = "page", defaultValue = "0") Integer page,
-            @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
-            @RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
-            @RequestParam(value = "direction", defaultValue = "ASC") String direction)
+    public ResponseEntity<Page<ProductDTO>> findAll(Pageable pageable)
      {
-        Sort.Direction directionObj = Sort.Direction.fromString(direction);
-        Sort sort = Sort.by(directionObj, orderBy);
-        Pageable pageable = PageRequest.of(page, linesPerPage, sort);
         Page<ProductDTO> result = productService.findAll(pageable);
         return ResponseEntity.ok().body(result);
     }
