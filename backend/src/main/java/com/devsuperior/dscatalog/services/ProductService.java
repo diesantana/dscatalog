@@ -85,6 +85,8 @@ public class ProductService {
         entity.setPrice(productDTO.getPrice());
         entity.setImgUrl(productDTO.getImgUrl());
         entity.setDate(productDTO.getDate());
+        // limpa as categorias da entidade (problema ao atualizar)
+        entity.getCategories().clear();
         for(CategoryDTO catDTO : productDTO.getCategories()) {
             Category category = categoryRepository.getReferenceById(catDTO.getId());
             entity.getCategories().add(category);
