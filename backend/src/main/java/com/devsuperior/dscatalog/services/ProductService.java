@@ -41,7 +41,7 @@ public class ProductService {
     @Transactional
     public ProductDTO insert(ProductDTO productDTO) {
         Product entity = new Product();
-        copyDtoToEntity(entity, productDTO);
+        copyDtoToEntity(productDTO, entity);
         entity = productRepository.save(entity);
         return new ProductDTO(entity);
     }
@@ -52,7 +52,7 @@ public class ProductService {
     public ProductDTO update(ProductDTO productDTO, Long id) {
         try {
             Product product = productRepository.getReferenceById(id);
-            copyDtoToEntity(product, productDTO);
+            copyDtoToEntity(productDTO, product);
             
             product = productRepository.save(product);
             return new ProductDTO(product);
@@ -79,7 +79,7 @@ public class ProductService {
     }
 
     // Copia as propriedades do DTO para a entidade
-    private void copyDtoToEntity(Product entity, ProductDTO productDTO) {
+    private void copyDtoToEntity(ProductDTO productDTO, Product entity) {
         entity.setName(productDTO.getName());
         entity.setDescription(productDTO.getDescription());
         entity.setPrice(productDTO.getPrice());
