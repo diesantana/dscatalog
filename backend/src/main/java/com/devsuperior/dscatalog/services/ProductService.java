@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 public class ProductService {
     
@@ -27,13 +29,16 @@ public class ProductService {
     
     @Transactional(readOnly = true)
     public Page<ProductDTO> findAll(Pageable pageable) {
-        Page<Product> resultEntity = productRepository.searchAll(pageable);
+//        Page<Product> resultEntity = productRepository.searchAll(pageable);
+        Page<Product> resultEntity = productRepository.findAll(pageable);
         return resultEntity.map(ProductDTO::new);
     }
-
+    
     @Transactional(readOnly = true)
     public ProductDTO findById(Long id) {
-        Product entity = productRepository.searchProductWithCategoriesById(id)
+//        Product entity = productRepository.searchProductWithCategoriesById(id)
+//                .orElseThrow(() -> new ResourceNotFoundException("Recurso não encontrado"));
+        Product entity = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Recurso não encontrado"));
         return new ProductDTO(entity);
     }
